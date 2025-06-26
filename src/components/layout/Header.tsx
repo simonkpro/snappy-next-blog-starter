@@ -3,6 +3,7 @@ import { Search, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -11,11 +12,14 @@ interface HeaderProps {
 export const Header = ({ onSearch }: HeaderProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(searchQuery);
   };
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <header className="backdrop-blur-md bg-background/80 border-b border-border sticky top-0 z-50">
@@ -23,17 +27,19 @@ export const Header = ({ onSearch }: HeaderProps) => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-xl font-semibold text-foreground tracking-tight">TechReport</h1>
+            <Link to="/">
+              <h1 className="text-xl font-semibold text-foreground tracking-tight">TechReport</h1>
+            </Link>
           </div>
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex">
             <div className="nav-pill flex items-center px-2 py-1 space-x-1">
-              <a href="#" className="nav-pill-item active">Home</a>
-              <a href="#" className="nav-pill-item">Tech</a>
-              <a href="#" className="nav-pill-item">Privacy</a>
-              <a href="#" className="nav-pill-item">Security</a>
-              <a href="#" className="nav-pill-item">AI</a>
+              <Link to="/" className={`nav-pill-item ${isActive('/') ? 'active' : ''}`}>Home</Link>
+              <Link to="/tech" className={`nav-pill-item ${isActive('/tech') ? 'active' : ''}`}>Tech</Link>
+              <Link to="/privacy" className={`nav-pill-item ${isActive('/privacy') ? 'active' : ''}`}>Privacy</Link>
+              <Link to="/security" className={`nav-pill-item ${isActive('/security') ? 'active' : ''}`}>Security</Link>
+              <Link to="/ai" className={`nav-pill-item ${isActive('/ai') ? 'active' : ''}`}>AI</Link>
             </div>
           </nav>
 
@@ -67,11 +73,11 @@ export const Header = ({ onSearch }: HeaderProps) => {
         {isMenuOpen && (
           <div className="md:hidden pt-6 pb-2 border-t border-border mt-4">
             <nav className="flex flex-col space-y-1 mb-6">
-              <a href="#" className="nav-pill-item text-left">Home</a>
-              <a href="#" className="nav-pill-item text-left">Tech</a>
-              <a href="#" className="nav-pill-item text-left">Privacy</a>
-              <a href="#" className="nav-pill-item text-left">Security</a>
-              <a href="#" className="nav-pill-item text-left">AI</a>
+              <Link to="/" className={`nav-pill-item text-left ${isActive('/') ? 'active' : ''}`}>Home</Link>
+              <Link to="/tech" className={`nav-pill-item text-left ${isActive('/tech') ? 'active' : ''}`}>Tech</Link>
+              <Link to="/privacy" className={`nav-pill-item text-left ${isActive('/privacy') ? 'active' : ''}`}>Privacy</Link>
+              <Link to="/security" className={`nav-pill-item text-left ${isActive('/security') ? 'active' : ''}`}>Security</Link>
+              <Link to="/ai" className={`nav-pill-item text-left ${isActive('/ai') ? 'active' : ''}`}>AI</Link>
             </nav>
             <div className="space-y-4">
               <form onSubmit={handleSearch}>

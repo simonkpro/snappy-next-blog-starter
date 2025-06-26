@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -45,12 +46,6 @@
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 22%;
     --sidebar-ring: 0 0% 85%;
-
-    /* Dotted background variables */
-    --dot-bg: #161616;
-    --dot-color: #848282;
-    --dot-size: 1px;
-    --dot-space: 50px;
   }
 
   * {
@@ -58,13 +53,13 @@
   }
 
   body {
-    @apply text-foreground antialiased;
+    @apply text-foreground antialiased bg-background;
     font-family: 'Inter', sans-serif;
     letter-spacing: -0.025em;
-    background:
-      linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-      linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-      var(--dot-color);
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
   }
   
   ::selection {
@@ -109,10 +104,6 @@
   
   .nav-pill-item {
     @apply px-4 py-2 text-sm rounded-full transition-colors;
-  }
-  
-  .nav-pill-item:hover {
-    @apply bg-accent text-accent-foreground;
   }
   
   .nav-pill-item.active {

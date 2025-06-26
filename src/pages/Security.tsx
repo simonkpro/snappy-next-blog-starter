@@ -1,77 +1,68 @@
 
-import { useState, useMemo } from 'react';
 import { Header } from '../components/layout/Header';
 import { ArticleCard } from '../components/article/ArticleCard';
-import { CategoryFilter } from '../components/layout/CategoryFilter';
 import { articles } from '../data/mockArticles';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-const Index = () => {
+const Security = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const filteredArticles = useMemo(() => {
+  const securityArticles = useMemo(() => {
     return articles.filter(article => {
+      const isSecurityArticle = article.category === 'Security';
       const matchesSearch = searchQuery === '' || 
         article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
       
-      const matchesCategory = selectedCategory === null || article.category === selectedCategory;
-      
-      return matchesSearch && matchesCategory;
+      return isSecurityArticle && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
-
-  const featuredArticle = filteredArticles.find(article => article.featured);
-  const regularArticles = filteredArticles.filter(article => !article.featured);
+  }, [searchQuery]);
 
   return (
     <div className="min-h-screen">
       <Header onSearch={setSearchQuery} />
       
       <main className="container mx-auto px-6 py-12">
+        {/* Breadcrumb */}
+        <div className="mb-8">
+          <nav className="text-sm text-muted-foreground">
+            <Link to="/" className="transition-colors">Home</Link> / <span className="text-foreground">Security</span>
+          </nav>
+        </div>
+
+        {/* Page Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-foreground mb-4 font-space-grotesk">Cybersecurity News</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Stay informed about the latest cybersecurity threats, data breaches, and security developments.
+          </p>
+        </div>
+
         {/* Search Results Info */}
         {searchQuery && (
           <div className="mb-8">
             <p className="text-muted-foreground text-sm">
-              {filteredArticles.length} result{filteredArticles.length !== 1 ? 's' : ''} for "{searchQuery}"
+              {securityArticles.length} result{securityArticles.length !== 1 ? 's' : ''} for "{searchQuery}" in Security
             </p>
           </div>
         )}
 
-        {/* Category Filter */}
-        <CategoryFilter 
-          selectedCategory={selectedCategory}
-          onCategorySelect={setSelectedCategory}
-        />
-
-        {/* Featured Article */}
-        {featuredArticle && !searchQuery && !selectedCategory && (
-          <section className="mb-16">
-            <h2 className="text-3xl font-semibold text-foreground mb-8 tracking-tight font-space-grotesk">Featured Story</h2>
-            <ArticleCard article={featuredArticle} featured={true} />
-          </section>
-        )}
-
         {/* Articles Grid */}
         <section>
-          <h2 className="text-3xl font-semibold text-foreground mb-8 tracking-tight font-space-grotesk">
-            {selectedCategory ? `${selectedCategory} Articles` : 'Latest Articles'}
-          </h2>
-          
-          {filteredArticles.length === 0 ? (
+          {securityArticles.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-muted-foreground text-lg mb-2">No articles found.</p>
+              <p className="text-muted-foreground text-lg mb-2">No security articles found.</p>
               {searchQuery && (
                 <p className="text-muted-foreground/70 text-sm">
-                  Try adjusting your search terms or browse by category.
+                  Try adjusting your search terms.
                 </p>
               )}
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {regularArticles.map((article) => (
+              {securityArticles.map((article) => (
                 <ArticleCard key={article.id} article={article} />
               ))}
             </div>
@@ -102,4 +93,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Security;
