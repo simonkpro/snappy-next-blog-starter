@@ -11,8 +11,8 @@ interface ArticleCardProps {
 
 export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => {
   const cardClasses = featured 
-    ? "group cursor-pointer transition-all hover:shadow-xl border-gray-800 bg-gray-900 hover:bg-gray-800"
-    : "group cursor-pointer transition-all hover:shadow-lg border-gray-800 bg-gray-900 hover:bg-gray-800";
+    ? "cosmic-card task-card cosmic-glow group cursor-pointer"
+    : "cosmic-card task-card group cursor-pointer";
 
   return (
     <Card className={cardClasses}>
@@ -21,53 +21,59 @@ export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => 
           <img
             src={article.imageUrl}
             alt={article.title}
-            className={`w-full object-cover transition-transform group-hover:scale-105 ${
+            className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
               featured ? 'h-64' : 'h-48'
             }`}
           />
           <div className="absolute top-4 left-4">
             <Badge 
-              className={`${getCategoryColor(article.category)} text-white`}
+              variant="secondary"
+              className="cosmic-glass text-xs font-medium"
             >
               {article.category}
             </Badge>
           </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
       )}
       
-      <CardHeader className={featured ? 'p-6' : 'p-4'}>
-        <h2 className={`font-bold text-white group-hover:text-green-400 transition-colors ${
-          featured ? 'text-2xl mb-2' : 'text-lg mb-1'
+      <CardHeader className={featured ? 'p-8' : 'p-6'}>
+        <h2 className={`font-semibold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight ${
+          featured ? 'text-2xl mb-3' : 'text-lg mb-2'
         }`}>
           {article.title}
         </h2>
         
-        <p className={`text-gray-400 leading-relaxed ${
+        <p className={`text-muted-foreground leading-relaxed ${
           featured ? 'text-base' : 'text-sm'
         }`}>
           {article.excerpt}
         </p>
       </CardHeader>
 
-      <CardContent className={featured ? 'px-6 pb-6' : 'px-4 pb-4'}>
-        <div className="flex items-center justify-between text-sm text-gray-500">
+      <CardContent className={featured ? 'px-8 pb-8' : 'px-6 pb-6'}>
+        <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-2">
               <User className="h-4 w-4" />
-              <span>{article.author.name}</span>
+              <span className="font-medium">{article.author.name}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-2">
               <Clock className="h-4 w-4" />
               <span>{article.readTime} min read</span>
             </div>
           </div>
-          <span>{formatDate(article.publishedAt)}</span>
+          <span className="text-xs">{formatDate(article.publishedAt)}</span>
         </div>
 
         {article.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="flex flex-wrap gap-2">
             {article.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="secondary" className="text-xs bg-gray-800 text-gray-300">
+              <Badge 
+                key={tag} 
+                variant="outline" 
+                className="text-xs font-normal border-border/50 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 {tag}
               </Badge>
             ))}
@@ -77,17 +83,6 @@ export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => 
     </Card>
   );
 };
-
-function getCategoryColor(category: string): string {
-  const colors: Record<string, string> = {
-    'Tech': 'bg-green-500',
-    'Privacy': 'bg-blue-500',
-    'Security': 'bg-red-500',
-    'AI': 'bg-purple-500',
-    'Investigation': 'bg-yellow-500',
-  };
-  return colors[category] || 'bg-gray-500';
-}
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);

@@ -9,13 +9,13 @@ interface CategoryFilterProps {
 
 export const CategoryFilter = ({ selectedCategory, onCategorySelect }: CategoryFilterProps) => {
   return (
-    <div className="flex flex-wrap gap-3 mb-8">
+    <div className="flex flex-wrap gap-3 mb-12">
       <Badge
         variant={selectedCategory === null ? "default" : "secondary"}
-        className={`cursor-pointer transition-colors ${
+        className={`nav-pill-item cursor-pointer font-medium ${
           selectedCategory === null 
-            ? 'bg-green-500 text-white hover:bg-green-600' 
-            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+            ? 'bg-accent text-accent-foreground' 
+            : 'bg-muted/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground'
         }`}
         onClick={() => onCategorySelect(null)}
       >
@@ -26,10 +26,10 @@ export const CategoryFilter = ({ selectedCategory, onCategorySelect }: CategoryF
         <Badge
           key={category.id}
           variant={selectedCategory === category.name ? "default" : "secondary"}
-          className={`cursor-pointer transition-colors ${
+          className={`nav-pill-item cursor-pointer font-medium ${
             selectedCategory === category.name
-              ? 'bg-green-500 text-white hover:bg-green-600'
-              : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              ? 'bg-accent text-accent-foreground'
+              : 'bg-muted/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground'
           }`}
           onClick={() => onCategorySelect(category.name)}
         >

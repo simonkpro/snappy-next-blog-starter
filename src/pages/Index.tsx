@@ -27,18 +27,18 @@ const Index = () => {
   const regularArticles = filteredArticles.filter(article => !article.featured);
 
   return (
-    <div className={`min-h-screen ${isDark ? 'dark bg-black' : 'bg-white'}`}>
+    <div className={`min-h-screen cosmic-grid ${isDark ? 'dark' : 'light-mode'}`}>
       <Header 
         onSearch={setSearchQuery} 
         isDark={isDark} 
         onThemeToggle={() => setIsDark(!isDark)} 
       />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-6 py-12">
         {/* Search Results Info */}
         {searchQuery && (
-          <div className="mb-6">
-            <p className="text-gray-400">
+          <div className="mb-8">
+            <p className="text-muted-foreground text-sm">
               {filteredArticles.length} result{filteredArticles.length !== 1 ? 's' : ''} for "{searchQuery}"
             </p>
           </div>
@@ -52,29 +52,29 @@ const Index = () => {
 
         {/* Featured Article */}
         {featuredArticle && !searchQuery && !selectedCategory && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-6">Featured Story</h2>
+          <section className="mb-16">
+            <h2 className="text-3xl font-semibold text-foreground mb-8 tracking-tight">Featured Story</h2>
             <ArticleCard article={featuredArticle} featured={true} />
           </section>
         )}
 
         {/* Articles Grid */}
         <section>
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-3xl font-semibold text-foreground mb-8 tracking-tight">
             {selectedCategory ? `${selectedCategory} Articles` : 'Latest Articles'}
           </h2>
           
           {filteredArticles.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">No articles found.</p>
+            <div className="text-center py-16">
+              <p className="text-muted-foreground text-lg mb-2">No articles found.</p>
               {searchQuery && (
-                <p className="text-gray-500 mt-2">
+                <p className="text-muted-foreground/70 text-sm">
                   Try adjusting your search terms or browse by category.
                 </p>
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {regularArticles.map((article) => (
                 <ArticleCard key={article.id} article={article} />
               ))}
@@ -84,20 +84,20 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 mt-16">
-        <div className="container mx-auto px-4 py-8">
+      <footer className="border-t border-border/50 mt-24 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-green-400 font-bold text-lg mb-4 md:mb-0">
+            <div className="text-foreground font-semibold text-lg mb-6 md:mb-0 tracking-tight">
               TechReport
             </div>
-            <div className="flex space-x-6 text-gray-400">
-              <a href="#" className="hover:text-green-400 transition-colors">About</a>
-              <a href="#" className="hover:text-green-400 transition-colors">Contact</a>
-              <a href="#" className="hover:text-green-400 transition-colors">Privacy</a>
-              <a href="#" className="hover:text-green-400 transition-colors">Terms</a>
+            <div className="flex space-x-8 text-muted-foreground text-sm">
+              <a href="#" className="hover:text-foreground transition-colors">About</a>
+              <a href="#" className="hover:text-foreground transition-colors">Contact</a>
+              <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+              <a href="#" className="hover:text-foreground transition-colors">Terms</a>
             </div>
           </div>
-          <div className="text-center text-gray-500 text-sm mt-4">
+          <div className="text-center text-muted-foreground/70 text-sm mt-8 pt-8 border-t border-border/30">
             © 2024 TechReport. All rights reserved.
           </div>
         </div>
