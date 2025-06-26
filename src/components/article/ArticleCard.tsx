@@ -11,8 +11,8 @@ interface ArticleCardProps {
 
 export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => {
   const cardClasses = featured 
-    ? "cosmic-card task-card cosmic-glow group cursor-pointer"
-    : "cosmic-card task-card group cursor-pointer";
+    ? "cosmic-card cosmic-glow cursor-pointer"
+    : "cosmic-card cursor-pointer";
 
   return (
     <Card className={cardClasses}>
@@ -21,7 +21,7 @@ export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => 
           <img
             src={article.imageUrl}
             alt={article.title}
-            className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+            className={`w-full object-cover ${
               featured ? 'h-64' : 'h-48'
             }`}
           />
@@ -33,12 +33,11 @@ export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => 
               {article.category}
             </Badge>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
       )}
       
       <CardHeader className={featured ? 'p-8' : 'p-6'}>
-        <h2 className={`font-semibold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight ${
+        <h2 className={`font-semibold text-foreground leading-tight ${
           featured ? 'text-2xl mb-3' : 'text-lg mb-2'
         }`}>
           {article.title}
@@ -72,7 +71,7 @@ export const ArticleCard = ({ article, featured = false }: ArticleCardProps) => 
               <Badge 
                 key={tag} 
                 variant="outline" 
-                className="text-xs font-normal border-border/50 text-muted-foreground hover:text-foreground transition-colors"
+                className="text-xs font-normal border-border/50 text-muted-foreground"
               >
                 {tag}
               </Badge>

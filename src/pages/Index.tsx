@@ -6,7 +6,6 @@ import { CategoryFilter } from '../components/layout/CategoryFilter';
 import { articles } from '../data/mockArticles';
 
 const Index = () => {
-  const [isDark, setIsDark] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -27,12 +26,8 @@ const Index = () => {
   const regularArticles = filteredArticles.filter(article => !article.featured);
 
   return (
-    <div className={`min-h-screen cosmic-grid ${isDark ? 'dark' : 'light-mode'}`}>
-      <Header 
-        onSearch={setSearchQuery} 
-        isDark={isDark} 
-        onThemeToggle={() => setIsDark(!isDark)} 
-      />
+    <div className="min-h-screen">
+      <Header onSearch={setSearchQuery} />
       
       <main className="container mx-auto px-6 py-12">
         {/* Search Results Info */}
@@ -91,10 +86,10 @@ const Index = () => {
               TechReport
             </div>
             <div className="flex space-x-8 text-muted-foreground text-sm">
-              <a href="#" className="hover:text-foreground transition-colors">About</a>
-              <a href="#" className="hover:text-foreground transition-colors">Contact</a>
-              <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-              <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+              <a href="#" className="transition-colors">About</a>
+              <a href="#" className="transition-colors">Contact</a>
+              <a href="#" className="transition-colors">Privacy</a>
+              <a href="#" className="transition-colors">Terms</a>
             </div>
           </div>
           <div className="text-center text-muted-foreground/70 text-sm mt-8 pt-8 border-t border-border/30">

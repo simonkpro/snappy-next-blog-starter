@@ -1,16 +1,14 @@
 
-import { Search, Menu, Sun, Moon } from 'lucide-react';
+import { Search, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
 interface HeaderProps {
   onSearch: (query: string) => void;
-  isDark: boolean;
-  onThemeToggle: () => void;
 }
 
-export const Header = ({ onSearch, isDark, onThemeToggle }: HeaderProps) => {
+export const Header = ({ onSearch }: HeaderProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -53,15 +51,6 @@ export const Header = ({ onSearch, isDark, onThemeToggle }: HeaderProps) => {
                 />
               </div>
             </form>
-            
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onThemeToggle}
-              className="icon-glow text-muted-foreground hover:text-foreground"
-            >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
 
             <Button variant="outline" className="hidden sm:flex cosmic-glass">
               Subscribe
@@ -71,7 +60,7 @@ export const Header = ({ onSearch, isDark, onThemeToggle }: HeaderProps) => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-muted-foreground hover:text-foreground"
+              className="md:hidden text-muted-foreground"
             >
               <Menu className="h-5 w-5" />
             </Button>
