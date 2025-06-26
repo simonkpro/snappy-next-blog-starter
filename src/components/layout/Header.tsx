@@ -52,10 +52,6 @@ export const Header = ({ onSearch }: HeaderProps) => {
               </div>
             </form>
 
-            <Button variant="outline" className="hidden sm:flex cosmic-glass">
-              Subscribe
-            </Button>
-
             <Button
               variant="ghost"
               size="icon"
